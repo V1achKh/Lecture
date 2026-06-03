@@ -1,5 +1,31 @@
-﻿//страница 91
-int number = 1;
+﻿//страница 102
+
+
+
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//страница 91
+/*
+using System.Text;
+
 string str, choice = "", pathFile = Path.Combine(AppContext.BaseDirectory, "list.txt");
 
 if (!File.Exists(pathFile))
@@ -16,11 +42,10 @@ while (choice != "2")
     switch(choice)
     {
         case "1":
-            str = Console.ReadLine();
-            add_to_list(str);
+            add_to_list(pathFile);
             break;
         case "2":
-            print_file();
+            print_file(pathFile);
             break;
         default: 
             Console.WriteLine("Неправильный ввод");
@@ -30,15 +55,30 @@ while (choice != "2")
 
 void add_to_list(string path)
 {
+    int number = 1;
     using StreamReader file = new StreamReader(path);
+    StringBuilder sb = new StringBuilder();
+    string line = Console.ReadLine();
+    while (line != "")
+    {
+        sb.AppendLine($"{number} [{DateTime.Now:dd.MM.yyyy}] {line}");
+        number++;
+        line = Console.ReadLine();
+    }
 
+    File.WriteAllText(path, sb.ToString());
 }
 
-void print_file()
+void print_file(string path)
 {
-
+    foreach (var line in File.ReadLines(path))
+    {
+        Console.WriteLine(line.ToString());
+    }
+    
+    Console.WriteLine("Конец вывода");
 }
-
+*/
 //
 
 
@@ -134,8 +174,6 @@ void print_file()
 
 
 //// страница 68
-///
-
 //Console.Write("Введите каталог: ");
 //string? path = Console.ReadLine();
 //while (!Directory.Exists(path))
