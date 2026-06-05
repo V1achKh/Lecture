@@ -1,6 +1,72 @@
 ﻿//страница 102
+using System.Globalization;
+using System.Text;
+Console.OutputEncoding = Encoding.UTF8;
+Console.InputEncoding = Encoding.UTF8;
 
+switch (args[0].ToLower())
+{
+    case "generate":
+        Generate();
+        break;
+    case "filter":
+        Filter();
+        break;
+    default:
+        Console.Error.WriteLine($"{args[0]} - неизвестно что");
+        break;
+}
 
+void Generate()
+{
+    string[] param = { "Фамилия", "Предмет", "Оценка" };
+    string[] secnames = { "А", "Б", "В", "Г", "Д" };
+    string[] school = { "Физика", "Математика", "Информатика" };
+
+    Random rng = new(1);
+
+    for (int i = 0; i < 20; ++i)
+    {
+        int mark = rng.Next(2, 6);
+        string sch =  school[rng.Next(school.Length)];
+        string secn = secnames[rng.Next(secnames.Length)];
+        Console.WriteLine($"{secn};{sch};{mark}");
+    }
+
+    Console.Error.WriteLine("Поставлено 20 оценок");
+
+}
+
+void Filter ()
+{
+    if (!int.TryParse(args[1],  out int thresold) || thresold > 5)
+    {
+        Console.Error.WriteLine("Неккоректный ввод. Введите число не превосходящее 5");
+    } 
+    else
+    {
+        string? line;
+        while ((line = Console.ReadLine()) is not null)
+        {
+            string[] lines = line.Split(";");
+            if (lines.Length != 3 || !int.TryParse(lines[2], out int mark))
+            {
+                Console.Error.WriteLine($"[Filter] Кривая строка {line}");
+                continue;
+            }
+            
+            if (mark >= thresold)
+            {
+                Console.WriteLine(line);
+            }
+            else
+            {
+                Console.Error.WriteLine($"Оценка в строке {line} не проходит " +
+                    $"порог {thresold}");
+            }
+        }
+    }
+}
 
 
 
