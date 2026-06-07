@@ -4,12 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Book book1 = new Book();
-        Book book2 = new Book();
-        book1.SetData("1984", "Дж. Оруэлл", 1949, 328);
-        book2.SetData("Война и Мир", "толстой", 1869, 1225);
+        Book book1 = new Book("1984","Оруэлл", 1949, 328);
+        Book book2 = new Book("1984", "Оруэлл");
+        Book book3 = new Book();
         Console.WriteLine(book1.GetInfo());
         Console.WriteLine(book2.GetInfo());
+        Console.WriteLine(book3.GetInfo());
     }
 }
 class Book
@@ -19,12 +19,21 @@ class Book
     private int year;
     private int pageCount;
 
-    public void SetData(string title, string author, int year, int pageCount)
+    public Book(string title, string author, int year, int pageCount)
     {
         this.title = title;
         this.author = author;
         this.year = year;
         this.pageCount = pageCount;
+    }
+
+    public Book(string title, string author):this(title, author, 2024, 0)
+    {
+    }
+
+    public Book(): this("Без названия", "Неизвестен")
+    {
+        
     }
     
     public string GetInfo()
