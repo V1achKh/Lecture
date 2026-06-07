@@ -1,4 +1,239 @@
-﻿//страница 102
+﻿//промт для проверки
+//   оцени мое решение "" на задание "" предложенное решение ""
+
+
+//страница 134
+
+class Book
+{
+    private string title;
+    private string author;
+    private int year;
+    private string pageCount;
+
+    public void SetData(string title, string author, int year, string pageCount)
+    {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.pageCount = pageCount;
+    }
+    
+    public string GetInfo()
+    {
+        return $"<{title}> - {author} - {year} - {pageCount}";
+    }
+    
+}
+
+
+
+
+
+
+//страница 130
+
+
+/*
+Person first = new Person("Боб", 19);
+Person second = new Person("Боб", 19);
+
+Console.WriteLine($"{first} == {second}: {first == second}");
+
+second = second with { Name = "Дилан" };
+
+Console.WriteLine($"{first} == {second}: {first == second}");
+
+Point obj1 = new Point(1, 2);
+Point obj2 = obj1;
+Console.WriteLine( $"{obj1} == {obj2} : {obj1 == obj2}" );
+
+obj2 = obj2 with { Y = 3 };
+Console.WriteLine($"{obj1} == {obj2} : {obj1 == obj2}" );
+
+record Person(string Name, int  Age);
+record struct Point (int X, int Y);
+
+*/
+
+//
+
+
+
+//страница 125
+/*
+Tuple<string, string, int> book = new Tuple<string, string, int>("Преступление " +
+                                                                 "и наказание", "Достоевский", 1884);
+Console.WriteLine($"{book.Item1}, {book.Item2}, {book.Item3}");
+
+(string nameof, string author, int year) book2 = ("Преступление и наказание", 
+    "Достоевский", 1884);
+
+Console.WriteLine($"{book2.nameof}, {book2.author}, {book2.year}");
+
+List<(string Title, string Author, int Year)> books =
+[
+    ("Преступление и наказание", "Фёдор Достоевский", 1866),
+    ("Война и мир", "Лев Толстой", 1869),
+    ("1984", "Джордж Оруэлл", 1949),
+    ("Дюна", "Фрэнк Герберт", 1965),
+    ("Мастер и Маргарита", "Михаил Булгаков", 1967),
+    ("Гарри Поттер и философский камень", "Дж. К. Роулинг", 1997)
+];
+
+(string oldest, string newest, double med) = find(books);
+Console.WriteLine($"{oldest}, {newest}, {med}");
+
+List<(string Genre, int Year)> testData =
+[
+    ("фантастика", 1985), 
+    ("фантастика", 1980), 
+    ("фантастика", 1960), 
+    ("детектив", 2005), 
+    ("детектив", 1990), 
+    ("детектив", 1950), 
+    ("романтика", 2023), 
+    ("история", 1900) 
+];
+
+foreach (var item in testData)
+{
+    Console.WriteLine(ClassifyBook(item.Genre, item.Year));
+}
+
+static (string Oldest, string Newest, double AvgYear) find(List<(string Title, 
+    string Author, int Year)> li)
+{
+    double sum = 0;
+    (string T1, string A1, int Y1) oldest, newest;
+    oldest = li[0];
+    newest = li[0];
+    foreach (var item in li)
+    {
+        (_, _, int year) = item;
+        sum += year;
+        
+        if (year > newest.Y1)
+        {
+            newest = item;
+        }
+        else if (year < oldest.Y1)
+        {
+            oldest = item;
+        }
+    }
+    
+    double med = sum / li.Count;
+    return (oldest.T1, newest.T1, med);
+}
+
+static string ClassifyBook(string genre, int year) =>
+    (genre, year) switch
+    {
+        ("фантастика", > 1980) => "современная фантастика",
+        ("фантастика", <= 1980) => "классическая фантастика",
+        ("детектив", > 1990) => "современный детектив",
+        ("детектив", <= 1990) => "классический детектив",
+        _ => "другие жанры"
+    };
+*/
+//
+
+
+
+//страница 117
+/*
+List<string> names_of_student = ["А", "Б", "В", "Г", "Д"];
+foreach (string name in names_of_student)
+{
+    Console.WriteLine($"{name}");
+}
+
+string new_student = "Е", remove_student = "Б";
+names_of_student.Add("Е");
+
+string find = "А";
+
+bool res = names_of_student.Contains(find);
+
+if (res)
+{
+    Console.WriteLine($"студент {find} существует");
+}
+else
+{
+    Console.WriteLine($"Студента {find} нет");
+}
+
+names_of_student.Remove(remove_student);
+
+int n = 0;
+foreach (string name in names_of_student)
+{
+    ++n;
+    Console.WriteLine($"{n} - {name}");
+}
+
+Stack<string> students = new Stack<string>();
+students.Push("А");
+students.Push("Б");
+students.Push("В");
+
+Console.WriteLine($"последний сдавший экзамен - {students.Peek()}");
+
+while (students.Count > 0)
+{
+    Console.WriteLine(students.Pop());
+}
+
+Queue<string> studentsQueue = new Queue<string>();
+studentsQueue.Enqueue("А");
+studentsQueue.Enqueue("Б");
+studentsQueue.Enqueue("В");
+studentsQueue.Enqueue("Г");
+
+Console.WriteLine($"Первый в очереди - {studentsQueue.Peek()}");
+
+while (studentsQueue.Count > 0)
+{
+    Console.WriteLine(studentsQueue.Dequeue());
+}
+
+Dictionary<string, int> studentsDictionary = new Dictionary<string, int>()
+{
+    ["А"] = 4,
+    ["Б"] = 3,
+    ["В"] = 3,
+    ["Г"] = 5,
+    ["Д"] = 2,
+};
+
+double sum = 0;
+
+foreach (var (s, m) in studentsDictionary)
+{
+    sum += m;
+    Console.WriteLine($"{s} - {m}");
+}
+
+string sname = "А";
+studentsDictionary.TryGetValue(sname, out var value);
+
+Console.WriteLine($"Оценка студента {sname} - {value}");
+
+double med = sum / studentsDictionary.Count;
+
+Console.WriteLine($"Средняя оценка группы - {med}");
+*/
+
+
+
+//
+
+
+
+//страница 102
+/*
 using System.Globalization;
 using System.Text;
 Console.OutputEncoding = Encoding.UTF8;
@@ -67,11 +302,10 @@ void Filter ()
         }
     }
 }
-
+*/
 
 
 //
-
 
 
 
@@ -92,7 +326,7 @@ void Filter ()
 /*
 using System.Text;
 
-string str, choice = "", pathFile = Path.Combine(AppContext.BaseDirectory, "list.txt");
+string choice = "", pathFile = Path.Combine(AppContext.BaseDirectory, "list.txt");
 
 if (!File.Exists(pathFile))
 {
@@ -122,7 +356,6 @@ while (choice != "2")
 void add_to_list(string path)
 {
     int number = 1;
-    using StreamReader file = new StreamReader(path);
     StringBuilder sb = new StringBuilder();
     string line = Console.ReadLine();
     while (line != "")

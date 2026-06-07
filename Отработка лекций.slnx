@@ -2,4 +2,5 @@
   <Project Path="ConsoleApp1/ConsoleApp1.csproj" />
   <Project Path="ConsoleApp2/Отработка лекций.csproj" />
   <Project Path="ConsoleApp3/Семинары.csproj" Id="94e010fd-b7af-4c72-a0af-d890e1f6f203" />
+  <Project Path="Library/Library.csproj" />
 </Solution>

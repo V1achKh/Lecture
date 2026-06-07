@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Семинары
 {
-    internal class FileName
+    class Program
     {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
     }
 }
