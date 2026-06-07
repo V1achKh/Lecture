@@ -2,30 +2,6 @@
 //   оцени мое решение "" на задание "" предложенное решение ""
 
 
-//страница 134
-
-class Book
-{
-    private string title;
-    private string author;
-    private int year;
-    private string pageCount;
-
-    public void SetData(string title, string author, int year, string pageCount)
-    {
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.pageCount = pageCount;
-    }
-    
-    public string GetInfo()
-    {
-        return $"<{title}> - {author} - {year} - {pageCount}";
-    }
-    
-}
-
 
 
 

@@ -4,31 +4,56 @@ class Program
 {
     static void Main(string[] args)
     {
-        Book book1 =
-            new Book( "Война и мир"
-                , "Л. Толстой"
-                , 1869, 1225);
-        Console .WriteLine(book1.GetInfo());
-        Console .WriteLine(book1.GetInfo(showPages:false));
-        Console .WriteLine($"Старше 50 лет: {book1.IsOlderThan()}");
-        Console .WriteLine($"Старше 200 лет: {book1.IsOlderThan(years: 200)}");
-        Console .WriteLine(book1.GetFormattedInfo());
-        Console .WriteLine(book1.GetFormattedInfo(format:"full"));
+        Book book1 = new Book( "Война и мир", "Л. Толстой", 1869, 1225)
+            {
+                Genre = "Роман"
+            };
+        Book book2 = new Book( "Новая книга", "А. Автор")
+        {
+            Genre ="Фантастика"
+        };
+        Console.WriteLine(book1.GetInfo());
+        Console.WriteLine($"Возраст: {book1.AgeInYears} лет");
+        Console.WriteLine($"Краткое: {book1.ShortDescription}");
+        Console.WriteLine();
+        Console.WriteLine(book2.GetFormattedInfo("full"));
+        book2.Year = 3000;
     }
 }
+
 class Book
 {
-    private string title;
-    private string author;
-    private int year;
-    private int pageCount;
 
+    public string Title { get; init; }
+    public string Author { get; init; }
+
+    private int _year;
+    public int Year
+    {
+        get => _year;
+        set
+        {
+            if (value > 1450 && value < DateTime.Now.Year)
+            {
+                _year = value;
+            }
+        }
+    }
+    public int PageCount { get; set; }
+
+    public required string Genre { get; set; }
+
+    public int AgeInYears => DateTime.Now.Year - Year;
+
+    public string ShortDescription => $"{Title} ({Year})";
+    
+    //конструкторы
     public Book(string title, string author, int year, int pageCount)
     {
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.pageCount = pageCount;
+        this.Title = title;
+        this.Author = author;
+        this.Year = year;
+        this.PageCount = pageCount;
     }
 
     public Book(string title, string author):this(title, author, 2024, 0)
@@ -39,33 +64,34 @@ class Book
     {
     }
     
+    //методы
     public string GetInfo()
     {
-        return $"<{title}> - {author} - {year} - {pageCount}";
+        return $"<{Title}> - {Author} - {Year} - {PageCount}";
     }
 
     public string GetInfo(bool showPages)
     {
         if (showPages)
         {
-            return $"<{title}> - {author} - {year} - {pageCount}";
+            return $"<{Title}> - {Author} - {Year} - {PageCount}";
         }
         else
         {
-            return $"<{title}> - {author} - {year}";
+            return $"<{Title}> - {Author} - {Year}";
         }
     }
 
     public bool IsOlderThan(int years = 50)
     {
-        return (DateTime.Now.Year - year) > years;
+        return (DateTime.Now.Year - Year) > years;
     }
 
     public string GetFormattedInfo(string format = "short")
     {
-        string FShort() => $"<{title}> - {author} - {year}";
-        string FFull() => $"Название: {title} - Автор: {author} - Год: {year} - " +
-                          $"Количество страниц: {pageCount}";
+        string FShort() => $"<{Title}> - {Author} - {Year}";
+        string FFull() => $"Название: {Title} - Автор: {Author} - Год: {Year} - " +
+                          $"Количество страниц: {PageCount}";
         return format switch
         {
             "short" => FShort(),
