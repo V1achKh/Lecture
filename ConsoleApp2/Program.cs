@@ -4,13 +4,9 @@
 
 
 
-
-
-
 //страница 130
 
 
-/*
 Person first = new Person("Боб", 19);
 Person second = new Person("Боб", 19);
 
@@ -30,7 +26,7 @@ Console.WriteLine($"{obj1} == {obj2} : {obj1 == obj2}" );
 record Person(string Name, int  Age);
 record struct Point (int X, int Y);
 
-*/
+
 
 //
 
