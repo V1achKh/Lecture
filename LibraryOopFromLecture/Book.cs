@@ -23,13 +23,21 @@ class Book : LibraryItem
         }
     }
 
+    public override string GetCardInfo()
+    {
+        return $"<{Title}> - {Author} - {Year}";
+    }
+
     public required string Genre { get; set; }
 
     public int AgeInYears => DateTime.Now.Year - Year;
 
     public string ShortDescription => $"{Title} ({Year})";
-    
-    
+
+    public override string GetInfo()
+    {
+        return $"<{Title}> - {Author} - {Year} - {Genre}";
+    }
     
     
     //конструкторы

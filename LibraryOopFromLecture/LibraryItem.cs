@@ -1,6 +1,6 @@
 namespace Library;
 
-class LibraryItem
+abstract class LibraryItem
 {
     public string Title { get; init; }
     
@@ -29,10 +29,13 @@ class LibraryItem
     public static int TotalItem => _totalItem;
     public int Id { get; }
     //метод
-    public string GetInfo()
+    public virtual string GetInfo()
     {
         return $"<{Title}> - {Year}";
     }
+    
+    public abstract string GetCardInfo();
+    
     //конструктор
     public LibraryItem(string title, int year)
     {
@@ -46,5 +49,7 @@ class LibraryItem
     {
         Console.WriteLine($"Общее количество созданных элементов: {_totalItem}");
     }
+
+    public virtual string Description => $"{Title} -  {Year}";
 
 }
