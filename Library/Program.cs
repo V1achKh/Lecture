@@ -3,36 +3,49 @@
 class Program
 {
     static void Main(string[] args)
-    {
-        Console.WriteLine($"Книг до создания: {Book.TotalCount}");   
-        CreateBook();
-
-        Book.PrintStatistics();
+    {  
+        Book[] books =
+        {
+            new("Война и мир", "Л. Толстой", 1869, 1225)
+                { Genre = "Роман" },
+            new("Новая книга", "А. Автор")
+                { Genre = "Фантастика" },
+            new("Новая книга", "А. Автор")
+                { Genre = "ehj" },
+            new("Старая книга", "Б. Автор", 1990, 200)
+                { Genre = "Проза" }
+        };
+    
+        LibraryUtils.PrintSeparator();
+        Console.WriteLine("Каталог библиотеки");
+        
+        LibraryUtils.PrintSeparator();
+        Console.WriteLine(LibraryUtils.FormatBookList(books));
+        LibraryUtils.PrintSeparator();
+        
+        Book oldest = LibraryUtils.FindOldest(books);
+        Console.WriteLine($"Самая старая книга: {oldest.ShortDescription}");
         
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
     }
 
-    static void CreateBook()
+    /*static void CreateBook()
     {
-        Book book1 = new Book( "Война и мир", "Л. Толстой", 1869, 1225)
+        Book[] books =
         {
-            Genre = "Роман"
-        };
-        Book book2 = new Book( "Новая книга", "А. Автор")
-        {
-            Genre ="Фантастика"
-        };
-        Book book3 = new Book("Новая книга", "А. Автор")
-        {
-            Genre = "ehj"
-        };
-        Book book4 = new Book("Старая книга", "Б. Автор", 1990, 200)
-        {
-            Genre = "Проза"
+            new("Война и мир", "Л. Толстой", 1869, 1225)
+                { Genre = "Роман" },
+            new("Новая книга", "А. Автор")
+                { Genre = "Фантастика" },
+            new("Новая книга", "А. Автор")
+                { Genre = "ehj" },
+            new("Старая книга", "Б. Автор", 1990, 200)
+                { Genre = "Проза" }
         };
     }
+    */
 }
 
 class Book
@@ -131,5 +144,38 @@ class Book
     ~Book()
     {
         Console.WriteLine($"Финализатор: книга «{Title}» удалена из памяти");
+    }
+}
+
+static class LibraryUtils
+{
+    public static void PrintSeparator(char symbol = '─', int length = 40)
+    {
+        Console.WriteLine(new string(symbol, length));
+    }
+
+    public static string FormatBookList(Book[] books)
+    {
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < books.Length; i++)
+        {
+            sb.AppendLine($"{i+1} - {books[i].GetInfo()}");
+        }
+
+        return sb.ToString();
+    }
+
+    public static Book FindOldest(Book[] books)
+    {
+        Book oldest = books[0];
+        foreach (var VARIABLE in books)
+        {
+            if (VARIABLE.Year < oldest.Year)
+            {
+                oldest = VARIABLE;
+            }
+        }
+        
+        return  oldest;
     }
 }
