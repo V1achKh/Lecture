@@ -4,25 +4,21 @@ class Program
 {
     static void Main(string[] args)
     {  
-        LibraryItem[] catalog =
-        {
-            new Book("Война и мир", "Толстой", 1869, 1225) { Genre = "Роман" },
-            new Magazine("Наука и жизнь", 2025, 3, "Пресса"),
-            new Book("1984", "Оруэлл", 1949, 328) { Genre = "Антиутопия" },
-            new Magazine("National Geographic", 2024, 12, "NatGeo")
-        };
-// Полиморфизм - один цикл, разное поведение
-        Console.WriteLine("=== Каталожные карточки ===");
-        foreach (LibraryItem item in catalog)
-        {
-            Console.WriteLine(item.GetCardInfo());
-        }
+        // ===== Основная программа =====
+        Book book1 = new("Война и мир", "Толстой", 1869, 1225) { Genre = "Роман" };
+        Magazine mag1 = new("Наука и жизнь", 2025, 3, "Пресса");
 
-        Console.WriteLine("\n=== Описания ===");
-        foreach (LibraryItem item in catalog)
-        {
-            Console.WriteLine(item.Description);
-        }
+// Методы расширения вызываются как обычные методы объекта
+        Console.WriteLine($"«{book1.Title}» новинка? {book1.IsNew()}");
+        Console.WriteLine($"«{mag1.Title}» новинка? {mag1.IsNew()}");
+
+        Console.WriteLine("\n=== CSV ===");
+        Console.WriteLine(book1.ToCsvLine());
+        Console.WriteLine(mag1.ToCsvLine());
+
+        Console.WriteLine("\n=== Каталожные карточки ===");
+        book1.PrintCard();
+        mag1.PrintCard();
         
         GC.Collect();
         GC.WaitForPendingFinalizers();
