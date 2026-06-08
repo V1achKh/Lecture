@@ -17,8 +17,7 @@ class Program
         };
     
         LibraryUtils.PrintSeparator();
-        Console.WriteLine("Каталог библиотеки");
-        
+        Console.WriteLine($"{LibraryUtils.LibraryName} ─ Время работы с: {LibraryUtils.StartupTime}");        
         LibraryUtils.PrintSeparator();
         Console.WriteLine(LibraryUtils.FormatBookList(books));
         LibraryUtils.PrintSeparator();
@@ -56,18 +55,30 @@ class Book
     public string Author { get; init; }
 
     private int _year;
+    private int _pageCount;
     public int Year
     {
         get => _year;
         set
         {
-            if (value >= 1450 && value <= DateTime.Now.Year)
+            if (value >= MinYear && value <= LibraryUtils.StartupTime.Year)
             {
                 _year = value;
             }
         }
     }
-    public int PageCount { get; set; }
+
+    public int PageCount
+    {
+        get => _pageCount;
+        set
+        {
+            if (value <= Book.MaxPageCount && value >= 0)
+            {
+                _pageCount = value;
+            }
+        }
+    }
 
     public required string Genre { get; set; }
 
@@ -78,6 +89,8 @@ class Book
     private static int _totalCount = 0;
     public static int TotalCount => _totalCount;
     public int Id { get; }
+    const int MaxPageCount = 10000;
+    const int MinYear = 1450;
     
     //конструкторы
     public Book(string title, string author, int year, int pageCount)
@@ -149,6 +162,10 @@ class Book
 
 static class LibraryUtils
 {
+    public const string LibraryName = "Городская библиотека";
+
+    public static readonly DateTime StartupTime = DateTime.Now;
+    
     public static void PrintSeparator(char symbol = '─', int length = 40)
     {
         Console.WriteLine(new string(symbol, length));
@@ -168,11 +185,11 @@ static class LibraryUtils
     public static Book FindOldest(Book[] books)
     {
         Book oldest = books[0];
-        foreach (var VARIABLE in books)
+        foreach (var variable in books)
         {
-            if (VARIABLE.Year < oldest.Year)
+            if (variable.Year < oldest.Year)
             {
-                oldest = VARIABLE;
+                oldest = variable;
             }
         }
         
