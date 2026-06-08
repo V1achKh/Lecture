@@ -18,12 +18,30 @@ class Program
         Console.WriteLine();
         Console.WriteLine(book2.GetFormattedInfo("full"));
         book2.Year = 3000;
+        
+        CreateBook();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+    }
+
+    static void CreateBook()
+    {
+        Book book3 = new Book("Новая книга", "А. Автор")
+        {
+            Genre = "ehj"
+        };
+        Book book4 = new Book("Старая книга", "Б. Автор", 1990, 200)
+        {
+            Genre = "Проза"
+        };
     }
 }
 
 class Book
 {
 
+    //свойства
     public string Title { get; init; }
     public string Author { get; init; }
 
@@ -33,7 +51,7 @@ class Book
         get => _year;
         set
         {
-            if (value > 1450 && value < DateTime.Now.Year)
+            if (value >= 1450 && value <= DateTime.Now.Year)
             {
                 _year = value;
             }
@@ -99,5 +117,9 @@ class Book
             _ => GetInfo()
         };
     }
-    
+
+    ~Book()
+    {
+        Console.WriteLine($"Финализатор: книга «{Title}» удалена из памяти");
+    }
 }
