@@ -4,22 +4,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Book book1 = new Book( "Война и мир", "Л. Толстой", 1869, 1225)
-            {
-                Genre = "Роман"
-            };
-        Book book2 = new Book( "Новая книга", "А. Автор")
-        {
-            Genre ="Фантастика"
-        };
-        Console.WriteLine(book1.GetInfo());
-        Console.WriteLine($"Возраст: {book1.AgeInYears} лет");
-        Console.WriteLine($"Краткое: {book1.ShortDescription}");
-        Console.WriteLine();
-        Console.WriteLine(book2.GetFormattedInfo("full"));
-        book2.Year = 3000;
-        
+        Console.WriteLine($"Книг до создания: {Book.TotalCount}");   
         CreateBook();
+
+        Book.PrintStatistics();
+        
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
@@ -27,6 +16,14 @@ class Program
 
     static void CreateBook()
     {
+        Book book1 = new Book( "Война и мир", "Л. Толстой", 1869, 1225)
+        {
+            Genre = "Роман"
+        };
+        Book book2 = new Book( "Новая книга", "А. Автор")
+        {
+            Genre ="Фантастика"
+        };
         Book book3 = new Book("Новая книга", "А. Автор")
         {
             Genre = "ehj"
@@ -41,7 +38,7 @@ class Program
 class Book
 {
 
-    //свойства
+    //свойства и поля
     public string Title { get; init; }
     public string Author { get; init; }
 
@@ -65,6 +62,10 @@ class Book
 
     public string ShortDescription => $"{Title} ({Year})";
     
+    private static int _totalCount = 0;
+    public static int TotalCount => _totalCount;
+    public int Id { get; }
+    
     //конструкторы
     public Book(string title, string author, int year, int pageCount)
     {
@@ -72,6 +73,8 @@ class Book
         this.Author = author;
         this.Year = year;
         this.PageCount = pageCount;
+        _totalCount++;
+        Id = _totalCount;
     }
 
     public Book(string title, string author):this(title, author, 2024, 0)
@@ -81,6 +84,8 @@ class Book
     public Book(): this("Без названия", "Неизвестен")
     {
     }
+
+    
     
     //методы
     public string GetInfo()
@@ -116,6 +121,11 @@ class Book
             "full" => FFull(),
             _ => GetInfo()
         };
+    }
+
+    public static void PrintStatistics()
+    {
+        Console.WriteLine($"Общее количество созданных книг: {_totalCount}");
     }
 
     ~Book()
